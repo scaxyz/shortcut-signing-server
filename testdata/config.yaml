@@ -1,0 +1,4 @@
+log-level: debug
+log-format: text
+log-file: ./testdata/test.log
+tls: false

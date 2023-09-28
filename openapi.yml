@@ -1,0 +1,79 @@
+openapi: '3.0.2'
+info:
+  title: Shortcut Signing API
+  version: '0.5'
+servers:
+  - url: https//localhost
+paths:
+  /sign:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SignRequest'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/SignRequest'
+          application/x-plist:
+            schema:
+              type: string
+
+      responses:
+        '200':
+          description: OK
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                type: string
+        '413':
+          description: Content Too Large
+          content:
+            text/plain:
+              schema:
+                type: string
+
+        '415':
+          description: Unsupported Media Type
+          content:
+            text/plain:
+              schema:
+                type: string
+
+        '500':
+          description: Internal Server Error
+          content:
+            text/plain:
+              schema:
+                type: string
+        
+        '503':
+          description: Service Unavailable
+          content:
+            text/plain:
+              schema:
+                type: string
+        
+
+components:
+  schemas:
+    SignRequest:
+      type: object
+      required:
+        - shortcut
+      properties:
+        shortcutName:
+          type: string
+          example: "Do something practical"
+        shortcut:
+          type: string
