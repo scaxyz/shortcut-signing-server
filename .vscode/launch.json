@@ -10,7 +10,7 @@
             "request": "launch",
             "mode": "debug",
             "program": "${workspaceFolder}/main.go",
-            "args": ["serve","--config=./testdata/config.yaml"]
+            "args": ["serve","--config=./testdata/config.yaml",":1337"]
         }
     ]
 }
