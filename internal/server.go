@@ -4,6 +4,7 @@ import (
 	"crypto/rand"
 	"encoding/json"
 	"errors"
+	"html/template"
 	"io"
 	"net"
 	"net/http"
@@ -126,7 +127,8 @@ func (s *Server) parsePayload(w http.ResponseWriter, r *http.Request) (*signingP
 
 	var payload = &signingPayload{}
 	var err error
-	switch r.Header.Get("Content-Type") {
+	contentType, _, _ := strings.Cut(r.Header.Get("Content-Type"), ";")
+	switch contentType {
 	case "application/json":
 		err = json.NewDecoder(r.Body).Decode(payload)
 
@@ -137,6 +139,24 @@ func (s *Server) parsePayload(w http.ResponseWriter, r *http.Request) (*signingP
 		}
 		payload.ShotcutName = r.Form.Get("shortcutName")
 		payload.Shortcut = r.Form.Get("shortcut")
+	case "multipart/form-data":
+		err = r.ParseMultipartForm(1 * MB)
+		if err != nil {
+			break
+		}
+		payload.ShotcutName = r.Form.Get("shortcutName")
+
+		mFile, _, err := r.FormFile("shortcut")
+		if err != nil {
+			break
+		}
+		defer mFile.Close()
+		content, err := io.ReadAll(mFile)
+		if err != nil {
+			break
+		}
+
+		payload.Shortcut = string(content)
 
 	case "application/yaml":
 		err = yaml.NewDecoder(r.Body).Decode(payload)
@@ -209,12 +229,7 @@ func (s *Server) verifyPayload(w http.ResponseWriter, r *http.Request, payload *
 	return true
 }
 
-func (s *Server) handleSigningRequest(w http.ResponseWriter, r *http.Request) {
-
-	if r.Method != "POST" {
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-		return
-	}
+func (s *Server) handlePostSigningRequest(w http.ResponseWriter, r *http.Request) {
 
 	if !s.aquireJob() {
 		http.Error(w, "Too many concurrent jobs", http.StatusServiceUnavailable)
@@ -267,5 +282,30 @@ func (s *Server) handleSigningRequest(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Disposition", "attachment; filename="+shortcutName+".shortcut")
 	w.WriteHeader(http.StatusOK)
 	w.Write(signedShortcutContent)
+
+}
+
+func (s *Server) handleGetSigningRequest(w http.ResponseWriter, r *http.Request) {
+
+	form, err := template.ParseFiles("./form.html")
+	if err != nil {
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
+	}
+
+	form.Execute(w, nil)
+	w.Header().Add("content-type", "text/html")
+
+}
+
+func (s *Server) handleSigningRequest(w http.ResponseWriter, r *http.Request) {
+
+	switch r.Method {
+	case "GET":
+		s.handleGetSigningRequest(w, r)
+	case "POST":
+		s.handlePostSigningRequest(w, r)
+	default:
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+	}
 
 }

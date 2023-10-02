@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shortcut signing</title>
+</head>
+<body>
+    <form action="/sign" method="post" enctype="multipart/form-data" >
+        Shortcut name: 
+        <input name="shortcutName">
+        Shorcut file: 
+        <input type="file" name="shortcut" accept="application/xml,.plist,.shortcut">
+        <button>Sign</button>
+    </form>
+</body>
+</html>
