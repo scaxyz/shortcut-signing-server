@@ -156,7 +156,7 @@ func runApp(ctx *cli.Context) error {
 
 	var options []internal.ServerOption
 
-	processTlsArgs(ctx, &options)
+	processFlags(ctx, &options)
 
 	server := internal.NewServer(ctx.String("listen"), options...)
 
@@ -165,12 +165,16 @@ func runApp(ctx *cli.Context) error {
 	return server.Listen(ctx.Args().First())
 }
 
-func processTlsArgs(ctx *cli.Context, options *[]internal.ServerOption) {
+func processFlags(ctx *cli.Context, options *[]internal.ServerOption) {
 
 	if ctx.Bool("tls") {
 		*options = append(*options, internal.EnableTls(ctx.String("tls-cert"), ctx.String("tls-key")))
 	} else if ctx.Path("tls-cert") != "" || ctx.Path("tls-key") != "" {
 		logger.Warn().Msg("Tls is disabled, but tls-cert and/or tls-key are set")
+	}
+
+	if ctx.Bool("re") {
+		*options = append(*options, internal.EnableFullErrorsRespones())
 	}
 
 }

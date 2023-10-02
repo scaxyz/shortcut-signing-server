@@ -14,7 +14,6 @@ type serverOptions struct {
 	responseWithFullError bool
 	maxConcurrentJobs     int
 	maxFilenameLength     int
-	createRandomFilenames bool
 }
 
 type ServerOption func(*serverOptions) error
@@ -36,13 +35,6 @@ func TempDir(dir string) ServerOption {
 		return nil
 	}
 
-}
-
-func CreateRandomFilenames(createRandomFilenames bool) ServerOption {
-	return func(so *serverOptions) error {
-		so.createRandomFilenames = createRandomFilenames
-		return nil
-	}
 }
 
 func MaxFilenameLength(maxFilenameLength int) ServerOption {
