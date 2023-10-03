@@ -69,3 +69,9 @@ log-file: ./testdata/test.log
 tls: false
 real-error-responses: true
 ```
+## Docker
+View [docker-osx.md](./docker-osx.md) for an guide how to set up docker with docker-osx to run this progam on most non mac machines
+
+## Errors
+### `signal: abort trap`
+Make sure are loggined in to your macOS via the UI/VNC
