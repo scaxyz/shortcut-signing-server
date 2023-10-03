@@ -110,6 +110,12 @@ func main() {
 			Usage:    "Maximum number of concurrent signing jobs",
 			Category: FLAG_CATEGORY_SERVER,
 		}),
+		altsrc.NewPathFlag(&cli.PathFlag{
+			Name:     "templates",
+			Value:    "",
+			Usage:    "Folder containing custom html templates (currently only: 'form.html' is used)",
+			Category: FLAG_CATEGORY_SERVER,
+		}),
 	}
 
 	globalFlags = append(globalFlags, loggingFlags...)
@@ -175,6 +181,10 @@ func processFlags(ctx *cli.Context, options *[]internal.ServerOption) {
 
 	if ctx.Bool("re") {
 		*options = append(*options, internal.EnableFullErrorsRespones())
+	}
+
+	if tempaltes := ctx.Path("templates"); tempaltes != "" {
+		*options = append(*options, internal.Templates(tempaltes))
 	}
 
 }

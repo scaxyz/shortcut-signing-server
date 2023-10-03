@@ -6,6 +6,7 @@ import (
 	"errors"
 	"html/template"
 	"io"
+	"io/fs"
 	"net"
 	"net/http"
 	"os"
@@ -26,7 +27,7 @@ const (
 
 type Server struct {
 	options       serverOptions
-	errorToString func(err error, short string) string
+	errorToString func(err error, short string) string // TODO better
 	jobCounterMx  sync.Mutex
 	jobCounter    int
 }
@@ -286,13 +287,24 @@ func (s *Server) handlePostSigningRequest(w http.ResponseWriter, r *http.Request
 }
 
 func (s *Server) handleGetSigningRequest(w http.ResponseWriter, r *http.Request) {
-
-	form, err := template.ParseFiles("./form.html")
-	if err != nil {
-		http.Error(w, "Internal server error", http.StatusInternalServerError)
+	var templatesFs fs.FS
+	if s.options.templateDir != "" {
+		templatesFs = os.DirFS(s.options.templateDir)
+	} else {
+		templatesFs = templates
 	}
 
-	form.Execute(w, nil)
+	parsed, err := template.ParseFS(templatesFs, "**/*.html")
+	if err != nil {
+		http.Error(w, s.errorToString(err, "Internal server error"), http.StatusInternalServerError)
+		return
+	}
+	err = parsed.ExecuteTemplate(w, "form.html", nil)
+	if err != nil {
+		http.Error(w, s.errorToString(err, "Internal server error"), http.StatusInternalServerError)
+		return
+	}
+
 	w.Header().Add("content-type", "text/html")
 
 }

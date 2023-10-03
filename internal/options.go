@@ -14,6 +14,7 @@ type serverOptions struct {
 	responseWithFullError bool
 	maxConcurrentJobs     int
 	maxFilenameLength     int
+	templateDir           string
 }
 
 type ServerOption func(*serverOptions) error
@@ -35,6 +36,13 @@ func TempDir(dir string) ServerOption {
 		return nil
 	}
 
+}
+
+func Templates(dir string) ServerOption {
+	return func(so *serverOptions) error {
+		so.templateDir = dir
+		return nil
+	}
 }
 
 func MaxFilenameLength(maxFilenameLength int) ServerOption {
