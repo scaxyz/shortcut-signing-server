@@ -71,7 +71,7 @@ real-error-responses: true
 ```
 
 ### API
-View [openapi.yml](./openapi.yml)
+View [editor.swagger.io](https://editor.swagger.io/?url=https://raw.githubusercontent.com/scaxyz/shortcut-signing-server/main/openapi.yml)
 
 ## Docker
 View [docker-osx.md](./docker-osx.md) for an guide how to set up docker with docker-osx to run this program on most non mac machines
