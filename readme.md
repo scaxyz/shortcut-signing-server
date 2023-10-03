@@ -60,7 +60,7 @@ OPTIONS:
    --tls-key value               Path to the tls cert key
 ```
 ## Config file
-A yaml file with uses the name of the cli flags as keys
+A yaml file which uses the name of the cli flags as keys
 e.g.
 ```yaml
 log-level: debug
