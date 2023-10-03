@@ -33,6 +33,7 @@ func main() {
 	configFlag := &cli.PathFlag{
 		Name:  "config",
 		Value: "",
+		Usage: "Path to the yaml config file",
 		// Category: FLAG_CATEGORY_SERVER,
 	}
 
@@ -47,11 +48,13 @@ func main() {
 		altsrc.NewPathFlag(&cli.PathFlag{
 			Name:     "tls-cert",
 			Value:    "",
+			Usage:    "Path to the tls cert file",
 			Category: FLAG_CATEGORY_SERVER,
 		}),
 		altsrc.NewPathFlag(&cli.PathFlag{
 			Name:     "tls-key",
 			Value:    "",
+			Usage:    "Path to the tls cert key",
 			Category: FLAG_CATEGORY_SERVER,
 		}),
 	}
