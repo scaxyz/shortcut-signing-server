@@ -98,7 +98,7 @@ services:
   - add `80:10023` or `443:10023` to the `ports` section
 - run `docker compose up` and check if everything is working
   - curl http://localhost:<PORT> should result in error 404
-  - curl http://localhost:<PORT>/sign should result in 405 method not allwed
-    - TODO later allow `GET` on /sign and return 200 and an form for uploading
-- if everything is ok, comment out  `/tmp/.X11-unix:/tmp/.X11-unix ` in your docker-compose.yml to disable/hide the ui
+  - curl http://localhost:<PORT>/sign should show a simple form for signing shortcuts
+- ~~if everything is ok, comment out  `/tmp/.X11-unix:/tmp/.X11-unix ` in your docker-compose.yml to disable/hide the ui~~
+  - currently you need to unlock your maschine via the ui/vnc to be able to sign shortcuts
 - copy your docker-compose file and image to your server if not already there

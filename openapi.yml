@@ -6,6 +6,11 @@ servers:
   - url: https//localhost
 paths:
   /sign:
+    get:
+      summary: Simple form for signing shortcuts
+      responses:
+        '200':
+          description: ok
     post:
       requestBody:
         content:

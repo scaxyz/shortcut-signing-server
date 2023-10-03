@@ -69,6 +69,10 @@ log-file: ./testdata/test.log
 tls: false
 real-error-responses: true
 ```
+
+### API
+View [openapi.yml](./openapi.yml)
+
 ## Docker
 View [docker-osx.md](./docker-osx.md) for an guide how to set up docker with docker-osx to run this progam on most non mac machines
 
