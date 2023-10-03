@@ -1,7 +1,7 @@
 openapi: '3.0.2'
 info:
   title: Shortcut Signing API
-  version: '0.5'
+  version: '1.0.0'
 servers:
   - url: https//localhost
 paths:
