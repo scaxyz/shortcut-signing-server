@@ -33,8 +33,8 @@ type Server struct {
 }
 
 type signingPayload struct {
-	ShotcutName string
-	Shortcut    string
+	ShortcutName string
+	Shortcut     string
 }
 
 var defaultServerOptions = []ServerOption{
@@ -98,7 +98,7 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func (s *Server) aquireJob() bool {
+func (s *Server) acquireJob() bool {
 
 	if s.options.maxConcurrentJobs <= 0 {
 		return true
@@ -138,14 +138,14 @@ func (s *Server) parsePayload(w http.ResponseWriter, r *http.Request) (*signingP
 		if err != nil {
 			break
 		}
-		payload.ShotcutName = r.Form.Get("shortcutName")
+		payload.ShortcutName = r.Form.Get("shortcutName")
 		payload.Shortcut = r.Form.Get("shortcut")
 	case "multipart/form-data":
 		err = r.ParseMultipartForm(1 * MB)
 		if err != nil {
 			break
 		}
-		payload.ShotcutName = r.Form.Get("shortcutName")
+		payload.ShortcutName = r.Form.Get("shortcutName")
 
 		mFile, _, err := r.FormFile("shortcut")
 		if err != nil {
@@ -232,7 +232,7 @@ func (s *Server) verifyPayload(w http.ResponseWriter, r *http.Request, payload *
 
 func (s *Server) handlePostSigningRequest(w http.ResponseWriter, r *http.Request) {
 
-	if !s.aquireJob() {
+	if !s.acquireJob() {
 		http.Error(w, "Too many concurrent jobs", http.StatusServiceUnavailable)
 		return
 	}
@@ -273,7 +273,7 @@ func (s *Server) handlePostSigningRequest(w http.ResponseWriter, r *http.Request
 		return
 	}
 
-	shortcutName := payload.ShotcutName
+	shortcutName := payload.ShortcutName
 	if strings.TrimSpace(shortcutName) == "" {
 		fileName, _, _ := strings.Cut(filepath.Base(unsignedShortcut), "_")
 		shortcutName = fileName

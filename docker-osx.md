@@ -21,14 +21,14 @@ But it can probable be setup headless using the VNC options from [docker-osx](ht
       -e MASTER_PLIST_URL='https://raw.githubusercontent.com/sickcodes/osx-serial-generator/master/config-custom.plist' \
       sickcodes/docker-osx:ventura
       # optional
-      # if you expirence network problems try adding
+      # if you experience network problems try adding
       # --net host \
       # also you can change the resolution with
       # -e WIDTH=1600 \
       # -e HEIGHT=900 \
   
 ```
-If you encounter any problems check the docker-osx repo's [iussues](https://github.com/sickcodes/Docker-OSX/issues)
+If you encounter any problems check the docker-osx repo's [issues](https://github.com/sickcodes/Docker-OSX/issues)
 
 ## When OSX is running follow the these steps
 
@@ -38,7 +38,7 @@ If you encounter any problems check the docker-osx repo's [iussues](https://gith
 - When done close the `Disk Utility`
 - Double click `Reinstall ventura`
 - Follow the installation
-- After creating a user and succesfully loging in, shutdown ventura
+- After creating a user and successfully logging in, shutdown ventura
 
 ## Run ... to find the latest  `mac_hdd_ng.img` created
 ```bash
@@ -47,7 +47,7 @@ sudo bash -c "find /var/lib/docker -name mac_hdd_ng.img -type f -print0 | xargs 
 
 Copy the image to your local directory
 
-# create docker-compose.yml and customise to your needs
+# create docker-compose.yml and customize to your needs
 ```yaml
 version: "3.9"
 
@@ -87,7 +87,7 @@ services:
 - run `cd shortcut-signing-server && go install .`
 - run `cd docker-osx`
 - create a config file `config.yaml`
-- customise the config
+- customize the config
 - make sure you are logged into your (burner?) icloud account
   - (needed but only possible via ui) 
 - shutdown the container with `docker compose stop`
@@ -97,8 +97,8 @@ services:
   - add `ADDITIONAL_PORTS: "hostfwd=tcp::10023-:80,"` to the `environment` section
   - add `80:10023` or `443:10023` to the `ports` section
 - run `docker compose up` and check if everything is working
-  - curl http://localhost:<PORT> should result in error 404
-  - curl http://localhost:<PORT>/sign should show a simple form for signing shortcuts
+  - `curl http://localhost:<PORT>` should result in error 404
+  - visiting `http://localhost:\<PORT>/sign` should show a simple form for signing shortcuts
 - ~~if everything is ok, comment out  `/tmp/.X11-unix:/tmp/.X11-unix ` in your docker-compose.yml to disable/hide the ui~~
-  - currently you need to unlock your maschine via the ui/vnc to be able to sign shortcuts
+  - currently you need to unlock your machine via the ui/vnc to be able to sign shortcuts
 - copy your docker-compose file and image to your server if not already there

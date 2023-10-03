@@ -59,7 +59,7 @@ OPTIONS:
    --tls-cert value              Path to the tls cert file
    --tls-key value               Path to the tls cert key
 ```
-## Configfile
+## Config file
 A yaml file with uses the name of the cli flags as keys
 e.g.
 ```yaml
@@ -74,8 +74,8 @@ real-error-responses: true
 View [openapi.yml](./openapi.yml)
 
 ## Docker
-View [docker-osx.md](./docker-osx.md) for an guide how to set up docker with docker-osx to run this progam on most non mac machines
+View [docker-osx.md](./docker-osx.md) for an guide how to set up docker with docker-osx to run this program on most non mac machines
 
 ## Errors
 ### `signal: abort trap`
-Make sure are loggined in to your macOS via the UI/VNC
+Make sure are logged in to your macOS via the UI/VNC

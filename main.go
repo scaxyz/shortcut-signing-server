@@ -183,11 +183,11 @@ func processFlags(ctx *cli.Context, options *[]internal.ServerOption) {
 	}
 
 	if ctx.Bool("re") {
-		*options = append(*options, internal.EnableFullErrorsRespones())
+		*options = append(*options, internal.EnableFullErrorsResponse())
 	}
 
-	if tempaltes := ctx.Path("templates"); tempaltes != "" {
-		*options = append(*options, internal.Templates(tempaltes))
+	if templates := ctx.Path("templates"); templates != "" {
+		*options = append(*options, internal.Templates(templates))
 	}
 
 }

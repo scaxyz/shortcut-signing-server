@@ -52,7 +52,7 @@ func MaxFilenameLength(maxFilenameLength int) ServerOption {
 	}
 }
 
-func EnableFullErrorsRespones() ServerOption {
+func EnableFullErrorsResponse() ServerOption {
 	return func(so *serverOptions) error {
 		so.responseWithFullError = true
 		return nil
