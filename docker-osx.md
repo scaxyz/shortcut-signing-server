@@ -39,6 +39,7 @@ If you encounter any problems check the docker-osx repo's [issues](https://githu
 - Double click `Reinstall ventura`
 - Follow the installation
 - After creating a user and successfully logging in, shutdown ventura
+- (TODO add instructions to enable ssh)
 
 ## Run ... to find the latest  `mac_hdd_ng.img` created
 ```bash
