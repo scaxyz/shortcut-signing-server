@@ -59,3 +59,13 @@ OPTIONS:
    --tls-cert value              Path to the tls cert file
    --tls-key value               Path to the tls cert key
 ```
+## Configfile
+A yaml file with uses the name of the cli flags as keys
+e.g.
+```yaml
+log-level: debug
+log-format: text
+log-file: ./testdata/test.log
+tls: false
+real-error-responses: true
+```
