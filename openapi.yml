@@ -10,7 +10,7 @@ paths:
       summary: Simple form for signing shortcuts
       responses:
         '200':
-          description: ok
+          description: Shows a form for signing shortcuts
     post:
       requestBody:
         content:
@@ -29,7 +29,7 @@ paths:
 
       responses:
         '200':
-          description: OK
+          description: OK - returns the signed shortcut
           content:
             application/octet-stream:
               schema:
