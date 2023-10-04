@@ -38,8 +38,10 @@ If you encounter any problems check the docker-osx repo's [issues](https://githu
 - When done close the `Disk Utility`
 - Double click `Reinstall ventura`
 - Follow the installation
-- After creating a user and successfully logging in, shutdown ventura
-- (TODO add instructions to enable ssh)
+- Create a user
+- Login
+- [Enable ssh](https://support.apple.com/guide/mac-help/allow-a-remote-computer-to-access-your-mac-mchlp1066/mac)
+- shutdown ventura
 
 ## Run ... to find the latest  `mac_hdd_ng.img` created
 ```bash
@@ -66,6 +68,8 @@ services:
     env_file:
       - ./output.env
     environment:
+      USERNAME: <username>
+      PASSWORD: <password>
       DISPLAY: "${DISPLAY:-:0.0}"
       # for later OSX_COMMANDS: "/bin/bash /Users/<username>/shortcut-signing-server/docker-osx/start-server.sh"
       GENERATE_SPECIFIC: true
@@ -73,8 +77,6 @@ services:
       # WIDTH: "1600"
       # HEIGHT: "900"
       # for later: ADDITIONAL_PORTS: "hostfwd=tcp::10023-:80,"
-
-
 ```
 
 ## setup the server for auto-run
