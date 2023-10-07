@@ -50,7 +50,10 @@ sudo bash -c "find /var/lib/docker -name mac_hdd_ng.img -type f -print0 | xargs 
 
 Copy the image to your local directory
 
-# create docker-compose.yml and customize to your needs
+## complete the mac address
+the mac address in the `output.env` is incomplete you have to prefix it with one of apples. (see: https://www.adminsub.net/mac-address-finder/apple)
+
+## create docker-compose.yml and customize to your needs
 ```yaml
 version: "3.9"
 
